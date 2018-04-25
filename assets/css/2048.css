@@ -4,10 +4,17 @@
     src: url('https://www.apple.com/wss/fonts/SF-Pro-Display/v1/sf-pro-display_regular.woff2') format('woff2');
 }
 
+.board {
+  background-color: rgb(128, 128, 128);
+  height: 512px;
+  width: 512px;
+}
+
 body {
   background-color: rgb(64, 64, 64);
   color: white;
   font-family: '2048', sans-serif;
+  padding-bottom: 20%;
 }
 
 /* Shadow for the navigation bar  */
@@ -15,12 +22,42 @@ body {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
+/* Board cell */
+.cell {
+  background-color: rgb(96, 96, 96);
+  height: 110px;
+  width: 110px;
+}
+
 .header {
-  font-size: 400%;
-  letter-spacing: 20px;
+  font-size: 300%;
+  letter-spacing: 10px;
 }
 
 .line {
-  height: 47px;
+  height: 35px;
   border-bottom: 1px solid white;
+}
+
+/* Current and best score! */
+.score {
+  background-color: rgb(128, 128, 128);
+  font-size: 80%;
+  height: 90px;
+  width: 100px;
+}
+
+/* Responsive screen depending on different sizes */
+@media only screen and (max-width: 550px) {
+  .board {
+    width: 90%;
+    height: 0;
+    padding-bottom: 90%;
+  }
+
+  .cell {
+    width: 17%;
+    height: 0;
+    padding-bottom: 17%;
+  }
 }
