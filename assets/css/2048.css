@@ -1,0 +1,26 @@
+/* Custom fonts */
+@font-face {
+    font-family: '2048';
+    src: url('https://www.apple.com/wss/fonts/SF-Pro-Display/v1/sf-pro-display_regular.woff2') format('woff2');
+}
+
+body {
+  background-color: rgb(64, 64, 64);
+  color: white;
+  font-family: '2048', sans-serif;
+}
+
+/* Shadow for the navigation bar  */
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+.header {
+  font-size: 400%;
+  letter-spacing: 20px;
+}
+
+.line {
+  height: 47px;
+  border-bottom: 1px solid white;
+}
