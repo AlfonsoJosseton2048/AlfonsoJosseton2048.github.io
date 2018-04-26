@@ -5,9 +5,15 @@
 }
 
 .board {
+	margin: auto;
+  width: 470px;
+	z-index: 1;
+}
+
+.board-container {
   background-color: rgb(128, 128, 128);
-  height: 512px;
-  width: 512px;
+  height: 500px;
+  width: 500px;
 }
 
 body {
@@ -24,9 +30,27 @@ body {
 
 /* Board cell */
 .cell {
-  background-color: rgb(96, 96, 96);
-  height: 110px;
-  width: 110px;
+  background: rgba(238, 228, 218, 0.35);
+  border-radius: 3px;
+  float: left;
+  height: 106.25px;
+  margin-right: 15px;
+  width: 106.25px;
+}
+.cell:last-child {
+  margin-right: 0;
+}
+
+.grid-row {
+  margin-bottom: 15px;
+}
+.grid-row:first-child {
+	padding-top: 15px;
+}
+.grid-row:after {
+  clear: both;
+  content: "";
+  display: block;
 }
 
 .header {
@@ -35,8 +59,9 @@ body {
 }
 
 .line {
-  height: 35px;
   border-bottom: 1px solid white;
+  height: 35px;
+  width: 12%;
 }
 
 /* Current and best score! */
@@ -44,20 +69,55 @@ body {
   background-color: rgb(128, 128, 128);
   font-size: 80%;
   height: 90px;
+  padding-top: 10px;
   width: 100px;
 }
+
 
 /* Responsive screen depending on different sizes */
 @media only screen and (max-width: 550px) {
   .board {
-    width: 90%;
-    height: 0;
-    padding-bottom: 90%;
+    margin: auto;
+    margin-bottom: 10%;
+    width: 226px;
+    z-index: 1;
+  }
+
+  .board-container {
+    height: 245px;
+    width: 240px;
+    z-index: 1;
   }
 
   .cell {
-    width: 17%;
-    height: 0;
-    padding-bottom: 17%;
+    background: rgba(238, 228, 218, 0.35);
+    border-radius: 3px;
+    float: left;
+    height: 50.5px;
+    margin-right: 8px;
+    width: 50.5px;
+  }
+  .cell:last-child {
+    margin-right: 1;
+  }
+
+  .grid-row {
+    margin-bottom: 10px;
+  }
+  .grid-row:first-child {
+    padding-top: 6px;
+  }
+  .grid-row:after {
+    clear: both;
+    content: "";
+    display: block;
+  }
+
+  .score {
+    background-color: rgb(128, 128, 128);
+    font-size: 80%;
+    height: 70px;
+    padding-top: 5px;
+    width: 80px;
   }
 }
