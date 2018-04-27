@@ -41,6 +41,16 @@ body {
   margin-right: 0;
 }
 
+.cell-number {
+  font-size: 35px;
+  font-weight: bold;
+  height: 100%;
+  opacity: 0.8;
+  padding-top: 26%;
+  text-align: center;
+  width: 100%;
+}
+
 .grid-row {
   margin-bottom: 15px;
 }
@@ -99,6 +109,10 @@ body {
   }
   .cell:last-child {
     margin-right: 1;
+  }
+
+  .cell-number {
+    padding-top: 2%;
   }
 
   .grid-row {
