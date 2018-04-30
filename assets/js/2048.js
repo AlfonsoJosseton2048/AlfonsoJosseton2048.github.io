@@ -117,12 +117,14 @@ $(document).ready(function() {
   // AppendTo animation plugin
   $.fn.animateAppendTo = function(sel, speed, yourFunc) {
     var $this = this, newEle = $this.clone(true).appendTo(sel), newPos = newEle.position();
-    newEle.hide();
-    $this.css('position', 'absolute').animate(newPos, speed, function() {
-        newEle.show();
-        $this.remove();
-    });
-    return newEle;
+    newEle.remove();
+    $this.animate({newPos}, {duration:speed, queue:false, complete:function() {
+        $this.appendTo(sel);
+
+        if (yourFunc != null) {
+          yourFunc();     // Custom function
+        }
+    }});
   };
 });
 
@@ -175,7 +177,6 @@ class Board {
 
     // Board still has empty positions...
 		if (this.occupiedCells < (this.SIZE * this.SIZE)) {
-			this.compactBoard(move);
 			this.makeNumberAppear();
 			this.occupiedGrids += 1;
 
@@ -276,6 +277,71 @@ class Board {
     }
   }
 
+  findNextPosition(move, posNumber) {
+    var lastCoordinate = -1;     	   // Last cell seen with a non-zero value.
+    var newPosition = [-1, -1];
+
+    if (move == Move.LEFT) {
+
+         for (var x = posNumber[1] - 1; x >= 0; --x) {
+           if (this.board[posNumber[0]][x] == 0) {
+             lastCoordinate = x;
+           }
+         }
+
+         // Do we need to move the number?
+         if (lastCoordinate != -1) {
+           this.board[posNumber[0]][lastCoordinate] = this.board[posNumber[0]][posNumber[1]];
+           this.board[posNumber[0]][posNumber[1]] = 0;
+           newPosition = [posNumber[0], lastCoordinate];
+         }
+
+    } else if (move == Move.RIGHT) {
+
+      for (var x = posNumber[1] + 1; x < this.SIZE; ++x) {
+        if (this.board[posNumber[0]][x] == 0) {
+          lastCoordinate = x;
+        }
+      }
+
+      if (lastCoordinate != -1) {
+        this.board[posNumber[0]][lastCoordinate] = this.board[posNumber[0]][posNumber[1]];
+        this.board[posNumber[0]][posNumber[1]] = 0;
+        newPosition = [posNumber[0], lastCoordinate];
+      }
+
+    } else if (move == Move.DOWN) {
+
+      for (var y = posNumber[0] + 1; y < this.SIZE; ++y) {
+        if (this.board[y][posNumber[1]] == 0) {
+          lastCoordinate = y;
+        }
+      }
+
+      if (lastCoordinate != -1) {
+        this.board[lastCoordinate][posNumber[1]] = this.board[posNumber[0]][posNumber[1]];
+        this.board[posNumber[0]][posNumber[1]] = 0;
+        newPosition = [lastCoordinate, posNumber[1]];
+      }
+
+    } else if (move == Move.UP) {
+
+      for (var y = posNumber[0] - 1; y >= 0; --y) {
+        if (this.board[y][posNumber[1]] == 0) {
+          lastCoordinate = y;
+        }
+      }
+
+      if (lastCoordinate != -1) {
+        this.board[lastCoordinate][posNumber[1]] = this.board[posNumber[0]][posNumber[1]];
+        this.board[posNumber[0]][posNumber[1]] = 0;
+        newPosition = [lastCoordinate, posNumber[1]];
+      }
+    }
+
+    return newPosition;
+  }
+
 
   // Generate an initial number: 2 or 4
   getRandomNumber() {
@@ -300,13 +366,35 @@ class Board {
   }
 
   /*
-    Moves a number to another position and removes the number on that destiny position
-    Both position parameters are strings like 00, where the first number is the
-    row and the second one is the column.
+    Moves a number to another position and removes the number on that destiny position.
+    Both position parameters are arrays like [0, 0]
   */
-  joinCells(posOrigin, posDestiny, newNumber) {
-    var $destinyNumber = $('#' + posDestiny).children('div').first();
-    var $newElement = $('#' + posOrigin).children('div').first().animateAppendTo('#' + posDestiny, 'fast');
+  joinCells(move, posOrigin, posDestiny) {
+    // From array to string
+    var posOriginString = posOrigin.join('');
+    var posDestinyString = posDestiny.join('');
+    var newNumber = this.board[posDestiny[0]][posDestiny[1]];
+
+    // The number we'll animate during all this process
+    var $numberDiv = $('#' + posOriginString).children('div').first();
+
+    // After the join animation, what's the next position to move on?
+    var newPosition = this.findNextPosition(move, posDestiny);
+    var newPositionString = newPosition.join('');
+    console.log(newPositionString);
+
+    // Get those objects that participate in the animation
+    var $destinyNumber = $('#' + posDestinyString).children('div').first();
+    $numberDiv.animateAppendTo('#' + posDestinyString, 30, function() {
+      if (newPosition[0] != -1) {
+        $numberDiv.animateAppendTo('#' + newPositionString, 30, null);
+      }
+    });
+    this.joinCollision(newNumber, $numberDiv, $destinyNumber);
+  }
+
+  // Animates the collision between two numbers, increasing the size of the resulting number and decreasing it again
+  joinCollision(newNumber, $newElement, $destinyNumber) {
     var size = $newElement.height();
 
     // Once our number at the origin position is at the destiny position, we must animate the collision
@@ -328,7 +416,6 @@ class Board {
                            });
     });
   }
-
 
   // Shows a new number in the board
   makeNumberAppear() {
@@ -353,7 +440,7 @@ class Board {
 
   	if (move == Move.LEFT) {
       for (var y = 0; y < this.SIZE; ++y) {
-        for (var x = 0; x < this.SIZE; ++x) {
+        for (var x = (this.SIZE - 1); x >= 0; --x) {
           if (this.board[y][x] != 0) {
 
             // Coordinate is saved only in case the last number had a different value or there is not a previous number different from zero
@@ -361,12 +448,13 @@ class Board {
               lastInt = this.board[y][x];
               lastCoordinate = x;
             } else {
-              this.joinCells(y + '' + x, y + '' + lastCoordinate, 2 * this.board[y][x]);
-
               this.board[y][x] = 2 * this.board[y][x];
               this.board[y][lastCoordinate] = 0;
               lastInt = -1;
               this.occupiedCells -= 1;
+
+              // Animation
+              this.joinCells(move, [y, lastCoordinate], [y, x]);
 
               // Victory!!
               if (this.board[y][x] == 2048) {
@@ -380,18 +468,19 @@ class Board {
 
     } else if (move == Move.RIGHT) {
       for (var y = 0; y < this.SIZE; ++y) {
-        for (var x = this.SIZE; x >= 0; --x) {
+        for (var x = 0; x < this.SIZE; ++x) {
           if (this.board[y][x] != 0) {
             if ((lastInt == -1) || (lastInt != this.board[y][x])) {
               lastInt = this.board[y][x];
               lastCoordinate = x;
             } else {
-              this.joinCells(y + '' + x, y + '' + lastCoordinate, 2 * this.board[y][x]);
-
               this.board[y][x] =  2 * this.board[y][x];
               this.board[y][lastCoordinate] = 0;
               lastInt = -1;
               this.occupiedCells -= 1;
+
+              // Animation
+              this.joinCells(move, [y, lastCoordinate], [y, x]);
 
               if (this.board[y][x] == 2048) {
                 reached2048 = true;
@@ -410,12 +499,13 @@ class Board {
               lastInt = this.board[y][x];
               lastCoordinate = y;
             } else {
-              this.joinCells(lastCoordinate + '' + x, y + '' + x, 2 * this.board[y][x]);
-
               this.board[y][x] = 2 * this.board[y][x];
               this.board[lastCoordinate][x] = 0;
               lastInt = -1;
               this.occupiedCells -= 1;
+
+              // Animation
+              this.joinCells(move, [lastCoordinate, x], [y, x]);
 
               if (this.board[y][x] == 2048) {
                 reached2048 = true;
@@ -434,12 +524,13 @@ class Board {
               lastInt = this.board[y][x];
               lastCoordinate = y;
             } else {
-              this.joinCells(lastCoordinate + '' + x, y + '' + x, 2 * this.board[y][x]);
-
               this.board[y][x] = this.board[y][x] + this.board[y][x];
               this.board[lastCoordinate][x] = 0;
               lastInt = -1;
               this.occupiedCells -= 1;
+
+              // Animation
+              this.joinCells(move, [lastCoordinate, x], [y, x], 2 * this.board[y][x]);
 
               if (this.board[y][x] == 2048) {
                 reached2048 = true;
