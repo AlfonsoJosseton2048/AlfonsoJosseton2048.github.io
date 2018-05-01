@@ -42,10 +42,9 @@ body {
 }
 
 .cell-number {
-  font-size: 42px;
+  font-size: 38px;
   font-weight: 600;
   height: 106.25px;
-  opacity: 0.8;
   position: absolute;
   text-align: center;
   width: 106.25px;
@@ -116,12 +115,12 @@ body {
   }
 
   .cell-number {
-    font-size: 35px;
+    font-size: 15px;
     height: 50.5px;
     width: 50.5px;
   }
   .cell-number p {
-    margin-top: 0;
+    margin-top: 15px;
   }
 
   .grid-row {
