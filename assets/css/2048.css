@@ -20,7 +20,7 @@ body {
   background-color: rgb(64, 64, 64);
   color: white;
   font-family: '2048', sans-serif;
-  padding-bottom: 10%;
+  padding-bottom: 0;
 }
 
 /* Shadow for the navigation bar  */
@@ -54,6 +54,13 @@ body {
   margin-top: 20px;
 }
 
+footer {
+  background-color: rgb(28, 28, 28);
+  margin-top: 8%;
+  padding-bottom: 5%;
+  width: 100%;
+}
+
 .grid-row {
   margin-bottom: 15px;
 }
@@ -75,6 +82,30 @@ body {
   border-bottom: 1px solid white;
   height: 35px;
   width: 12%;
+}
+
+.result-container {
+  background-color: rgba(204, 204, 0, 0.7);
+  font-size: 35px;
+  height: 500px;
+  padding-top: 5%;
+  position: absolute;
+  width: 500px;
+  z-index: 2;
+}
+
+.result-container > button {
+  margin-top: 12%;
+}
+
+#resultDescription {
+  font-size: 20px;
+}
+
+#resultImage {
+  height: 37%;
+  margin-top: 5%;
+  width: 45%;
 }
 
 /* Current and best score! */
@@ -133,6 +164,25 @@ body {
     clear: both;
     content: "";
     display: block;
+  }
+
+  .result-container {
+    font-size: 20px;
+    height: 245px;
+    width: 240px;
+  }
+
+  .result-container > button {
+    margin-top: 0;
+  }
+
+  #resultDescription {
+    font-size: 15px;
+  }
+
+  #resultImage {
+    height: 37%;
+    width: 52%;
   }
 
   .score {

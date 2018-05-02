@@ -5,6 +5,7 @@
 
   <!-- Metadatos -->
   <meta charset="utf-8">
+  <link rel="icon" href="assets/images/2048/logo.png">
 
   <!-- Bootstrap -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -55,6 +56,21 @@
     <!-- Board -->
     <div class="row justify-content-center">
       <div id="board" class="board-container rounded mt-4">
+
+        <!-- Result -->
+        <div class="rounded result-container text-center">
+          <p id="resultHeader" class="pb-0 mb-0"> Congratulations! </p>
+          <p id="resultDescription" class="p-0 m-0"> You reached the 2048 number! </p>
+
+          <!-- Image -->
+          <p> <img id="resultImage" src="assets/images/body/result.png" width="52%" height="37%" alt="Result image"> </p>
+
+          <!-- Share button -->
+          <a class="btn btn-primary" href="https://twitter.com/intent/tweet?text=Hello%20world">
+            Share in Twitter <span class="ml-2 fab fa-twitter"></span>
+          </a>
+        </div>
+
         <div class="board rounded">
           <!-- Board rows -->
           <div class="grid-row">
@@ -114,14 +130,48 @@
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- JavaScript required by Bootstrap. Placed at the end so the page loads faster -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+  <footer class="pt-2 pt-md-5">
+    <div class="container">
+      <div class="row">
+        <!-- Company -->
+        <div class="col-12 col-md">
+          <img class="mb-2" src="assets/images/2048/logo.png" alt="2048 icon" width="80" height="80">
+          <small class="d-block mb-3 text-muted">© 2017-2018</small>
+        </div>
 
-    <!-- Custom JS -->
-    <script src="assets/js/2048.js"></script>
+        <div class="col-6 col-md">
+          <h5> Features </h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="https://getbootstrap.com/docs/4.1/examples/pricing/#">Cool stuff</a></li>
+          </ul>
+        </div>
+
+        <div class="col-6 col-md">
+          <h5>Resources</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="https://getbootstrap.com/docs/4.1/examples/pricing/#">Resource</a></li>
+          </ul>
+        </div>
+
+        <div class="col-6 col-md">
+          <h5>About</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="https://getbootstrap.com/docs/4.1/examples/pricing/#">Team</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript required by Bootstrap. Placed at the end so the page loads faster -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://code.jquery.com/mobile/1.5.0-alpha.1/jquery.mobile-1.5.0-alpha.1.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+  <!-- Custom JS -->
+  <script src="assets/js/2048.js"></script>
 </body>
 </html>

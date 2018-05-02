@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+  // Disable jQuery mobile text
+  $.mobile.loading().hide();
+  
   // Init the game and the colors for each number
   mapBackground = initBackgrounds();
   mapForeground = initForegrounds();
@@ -53,6 +56,27 @@ $(document).ready(function() {
         game.move(Move.DOWN);
         break;
     }
+  });
+
+  // Listen for events from mobiles phones
+  $('#board').on('swipeleft', function(e) {
+    e.preventDefault();
+    game.move(Move.LEFT);
+  });
+
+  $('#board').on('swiperight', function(e) {
+    e.preventDefault();
+    game.move(Move.RIGHT);
+  });
+
+  $('#board').on('swipeup', function(e) {
+    e.preventDefault();
+    game.move(Move.TOP);
+  });
+
+  $('#board').on('swipedown', function(e) {
+    e.preventDefault();
+    game.move(Move.BOTTOM);
   });
 
 
@@ -170,7 +194,7 @@ class Board {
 	constructor() {
     // Intializing properties
     this.acceptMove = true;       // We won't accept moves until the current one (if there's a move at this moment) is fully computed
-    this.occupiedCells = 2;
+    this.occupiedCells = 0;
     this.SIZE = 4;                // Size of the board
     this.board = this.createBoard(0);     // 0 is the default value
     this.moveFrom = this.createBoard(null);
@@ -187,27 +211,30 @@ class Board {
       this.acceptMove = false;
 
       // Some variables for the move
-  		var reached2048 = false;                          // 2048 is not finished until we find a 2048 cell
   		var result = Status.CAN_MOVE;                      // As the game is not finished, the user can still move...
 
       // FIRST STEP: Gather those cells with the same number. It could find a 2048 cell...
-  		reached2048 = this.sumCells(move);
+  		var reached2048 = this.sumCells(move);
+      var didMove = this.compactBoard(move);
 
       // Board still has empty positions...
   		if (this.occupiedCells < (this.SIZE * this.SIZE)) {
-        this.compactBoard(move);
-
         // Make a new number appear when the animations are over
         var $ref = this;
         setTimeout(function() {
-  			     $ref.makeNumberAppear();
-  	         $ref.occupiedGrids += 1;
-             $ref.acceptMove = true;
-        }, 130);
+            if (didMove) {
+  			        $ref.makeNumberAppear();
+            }
+            $ref.acceptMove = true;
+        }, 300);
 
       // Otherwise, the board is full. If reached2048 is true then it's a victory
       } else if (!reached2048) {
-  			result = Status.DEFEAT;
+        if (this.isGameOver()) {
+          result = Status.DEFEAT;
+        } else {
+          this.acceptMove = true;
+        }
       } else {
   			result = Status.VICTORY;
       }
@@ -231,6 +258,19 @@ class Board {
     return x;
   }
 
+  // Creates a copy of the currently active board
+  cloneBoard(board) {
+    var x = this.createBoard(0);
+
+    for (var i = 0; i < this.SIZE; i++) {
+      for (var j = 0; j < this.SIZE; j++) {
+        x[i][j] = board[i][j];
+      }
+    }
+
+    return x;
+  }
+
   /**
    *  Creates a clone of a number cell. That function is added since we can't make
    *  the same animation twice over the same object, so we remove the already used one and
@@ -248,7 +288,7 @@ class Board {
 
   // Doesn't leave empty positions between numbers given an specific move
 	compactBoard(move) {
-    var lastCoordinate = 0;     	   // Last cell seen with a non-zero value.
+    var lastCoordinate = 0, didMove = false;     	   // Last cell seen with a non-zero value.
 
     if (move == Move.LEFT) {
 
@@ -261,11 +301,13 @@ class Board {
             // Animations
             if (this.moveFrom[y][x] != null) {
               // Merge movement
+              didMove = true;
               this.joinCellsAndMove([y, x], this.moveFrom[y][x], [y, lastCoordinate]);
 
               // Reset point value
               this.moveFrom[y][x] = null;
             } else {
+              didMove = true;
               this.moveCell([y, x], [y, lastCoordinate]);
             }
 
@@ -275,6 +317,7 @@ class Board {
 
             // Even if there's no empty spaces before the cell, there could be a merge movement
             if (this.moveFrom[y][x] != null) {
+              didMove = true;
               this.joinCellsAndMove(this.moveFrom[y][x], [y, x], null);
               this.moveFrom[y][x] = null;
             }
@@ -295,11 +338,13 @@ class Board {
             // Animations
             if (this.moveFrom[y][x] != null) {
               // Merge movement
+              didMove = true;
               this.joinCellsAndMove([y, x], this.moveFrom[y][x], [y, lastCoordinate]);
 
               // Reset point value
               this.moveFrom[y][x] = null;
             } else {
+              didMove = true;
               this.moveCell([y, x], [y, lastCoordinate]);
             }
 
@@ -308,6 +353,7 @@ class Board {
             lastCoordinate -= 1;
 
             if (this.moveFrom[y][x] != null) {
+              didMove = true;
               this.joinCellsAndMove(this.moveFrom[y][x], [y, x], null);
               this.moveFrom[y][x] = null;
             }
@@ -328,11 +374,13 @@ class Board {
             // Animations
             if (this.moveFrom[y][x] != null) {
               // Merge movement
+              didMove = true;
               this.joinCellsAndMove([y, x], this.moveFrom[y][x], [lastCoordinate, x]);
 
               // Reset point value
               this.moveFrom[y][x] = null;
             } else {
+              didMove = true;
               this.moveCell([y, x], [lastCoordinate, x]);
             }
 
@@ -341,6 +389,7 @@ class Board {
             lastCoordinate -= 1;
 
             if (this.moveFrom[y][x] != null) {
+                didMove = true;
                 this.joinCellsAndMove(this.moveFrom[y][x], [y, x], null);
                 this.moveFrom[y][x] = null;
             }
@@ -361,11 +410,13 @@ class Board {
             // Animations
             if (this.moveFrom[y][x] != null) {
               // Merge movement
+              didMove = true;
               this.joinCellsAndMove([y, x], this.moveFrom[y][x], [lastCoordinate, x]);
 
               // Reset point value
               this.moveFrom[y][x] = null;
             } else {
+              didMove = true;
               this.moveCell([y, x], [lastCoordinate, x]);
             }
 
@@ -374,6 +425,7 @@ class Board {
             lastCoordinate += 1;
 
             if (this.moveFrom[y][x] != null) {
+                didMove = true;
                 this.joinCellsAndMove(this.moveFrom[y][x], [y, x], null);
                 this.moveFrom[y][x] = null;
             }
@@ -382,6 +434,8 @@ class Board {
         lastCoordinate = 0;
       }
     }
+
+    return didMove;
   }
 
   // Generates an initial number: 2 or 4
@@ -406,6 +460,30 @@ class Board {
     return unoccupiedPos[Math.floor((Math.random() * unoccupiedPos.length))];
   }
 
+  // Checks if the game is over (can we merge any cells?). Take into account this method will be called with the board full of numbers
+  isGameOver() {
+    var cloneBoard = this.cloneBoard(this.board), cloneMoveFrom = this.cloneBoard(this.moveFrom), gameOver = true;
+
+    for (var i = Move.LEFT; i < Move.DOWN; i++) {
+      this.sumCells(i);
+
+      // Was there any merge movement?
+      if (this.occupiedCells < (this.SIZE * this.SIZE)) {
+        gameOver = false;
+        break;
+      } else {
+        this.board = this.cloneBoard(cloneBoard);
+        this.occupiedCells = this.SIZE * this.SIZE;
+      }
+    }
+
+    this.board = cloneBoard;
+    this.moveFrom = cloneMoveFrom;
+    this.occupiedCells = this.SIZE * this.SIZE;
+
+    return gameOver;
+  }
+
   /*
     Moves a number from an initial position to a destiny one, removing the cell in the intermediate position.
     Position parameters are arrays like [0, 0]
@@ -414,7 +492,6 @@ class Board {
     // From array to string
     var posOriginString = posOrigin.join('');
     var posInterString = posInter.join('');
-    var posDestinyString = posDestiny.join('');
 
     // The number we'll animate during all this process
     var $numberDiv = $('#' + posOriginString).children('div').first();
@@ -422,8 +499,10 @@ class Board {
 
     if (posDestiny != null) {
       var newNumber = this.board[posDestiny[0]][posDestiny[1]];
+      var posDestinyString = posDestiny.join('');
     } else {
       var newNumber = this.board[posInter[0]][posInter[1]];
+      var posDestinyString = posInter.join('');
     }
 
     // Animation
@@ -435,7 +514,7 @@ class Board {
 
     // 3. Depending on the type of movement, we still need to move the number in the origin until another position
     // The following animation can only be done once, we need to create a clone...
-    var $newElement = this.createClone(posDestiny);
+    var $newElement = this.createClone((posDestiny != null) ? posDestiny : posInter);
     var time = 120;
     $numberDiv.animateMergeAndAppendTo('#' + posDestinyString, time, function() {
       $numberDiv.remove();
@@ -466,6 +545,9 @@ class Board {
 
     // Save the number in the matrix
     this.board[position[0]][position[1]] = number;
+
+    // Increase the number of cells
+    this.occupiedCells += 1;
   }
 
   // Moves a cell from a origin position to a destiny with an animation
