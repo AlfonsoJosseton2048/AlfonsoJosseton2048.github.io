@@ -63,10 +63,15 @@
           <p id="resultDescription" class="p-0 m-0"> You reached the 2048 number! </p>
 
           <!-- Image -->
-          <p> <img id="resultImage" src="assets/images/body/result.png" width="52%" height="37%" alt="Result image"> </p>
+          <p> <img id="resultImage" src="assets/images/body/trophy.gif" alt="Result image"> </p>
+
+          <div class="container">
+            <p> <img id="pointContainer" src="assets/images/body/pointContainer.png" alt="Points image"> </p>
+            <p id="pointsImage"> Hola </p>
+          </div>
 
           <!-- Share button -->
-          <a class="btn btn-primary" href="https://twitter.com/intent/tweet?text=Hello%20world">
+          <a id="shareButton" target="_blank" class="btn btn-primary" href="https://twitter.com/intent/tweet?text=Hello%20world">
             Share in Twitter <span class="ml-2 fab fa-twitter"></span>
           </a>
         </div>
@@ -116,7 +121,7 @@
     </div>
 
     <!-- How to play 2048 -->
-    <div class="row justify-content-center mt-5">
+    <div class="row justify-content-center mt-5 mb-0">
       <div class="col-11 col-xl-5 col-md-6 text-center">
         <p style="letter-spacing:10px;"> HOW TO PLAY 2048</p>
         <i class="fas fa-chevron-up fa-2x"></i>
@@ -125,14 +130,14 @@
         <div id="howToPlayDescription" class="pt-2 small">
           <p> All you need to do is to use the arrows to move all the tiles in the direction you choose! </p>
           <img src="assets/images/body/arrowkeys.svg" width="30%" alt="Keyboard arrow keys">
-          <p class="mt-3"> Your goal is to collapse numbers till you get the 2048 cell </p>
-          <i class="fas fa-trophy fa-5x"></i>
+          <p class="mt-3 pb-0 mb-0"> Your goal is to collapse numbers till you get the 2048 cell </p>
+          <img src="assets/images/body/trophy.png" width="35%">
         </div>
       </div>
     </div>
   </div>
 
-  <footer class="pt-2 pt-md-5">
+  <footer class="pt-2 pt-md-5 mt-5">
     <div class="container">
       <div class="row">
         <!-- Company -->

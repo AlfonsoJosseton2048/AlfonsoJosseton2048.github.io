@@ -84,6 +84,17 @@ footer {
   width: 12%;
 }
 
+#pointContainer {
+  height: 80%;
+  transform: translate(0, -50%);
+  width: 80%;
+}
+
+#pointsImage {
+  font-size: 15px;
+  transform: translate(0, -570%);
+}
+
 .result-container {
   background-color: rgba(204, 204, 0, 0.7);
   font-size: 35px;
@@ -103,9 +114,9 @@ footer {
 }
 
 #resultImage {
-  height: 37%;
+  height: 35%;
   margin-top: 5%;
-  width: 45%;
+  width: 35%;
 }
 
 /* Current and best score! */
@@ -115,6 +126,10 @@ footer {
   height: 90px;
   padding-top: 10px;
   width: 100px;
+}
+
+#shareButton {
+  transform: translate(0, -150%);
 }
 
 
@@ -166,6 +181,17 @@ footer {
     display: block;
   }
 
+  #pointContainer {
+    height: 90%;
+    transform: translate(0, -65%);
+    width: 90%;
+  }
+
+  #pointsImage {
+    font-size: 11px;
+    transform: translate(0, -500%);
+  }
+
   .result-container {
     font-size: 20px;
     height: 245px;
@@ -182,7 +208,7 @@ footer {
 
   #resultImage {
     height: 37%;
-    width: 52%;
+    width: 37%;
   }
 
   .score {
@@ -191,5 +217,9 @@ footer {
     height: 70px;
     padding-top: 5px;
     width: 80px;
+  }
+
+  #shareButton {
+    transform: translate(0, -180%);
   }
 }
