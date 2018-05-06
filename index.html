@@ -43,13 +43,13 @@
       <!-- Current score -->
       <div id="currentScoreContainer" class="score rounded text-center">
         <h5> Score </h5>
-        <p id="currentScore" class="pt-2"> 2048054 </p>
+        <p id="currentScore" class="pt-2"> 0 </p>
       </div>
 
       <!-- Best score -->
       <div id="bestScoreContainer" class="score rounded text-center ml-5">
         <h5> Best </h5>
-        <p id="bestScore" class="pt-2"> 2048054 </p>
+        <p id="bestScore" class="pt-2"> 0 </p>
       </div>
     </div>
 
@@ -57,21 +57,40 @@
     <div class="row justify-content-center">
       <div id="board" class="board-container rounded mt-4">
 
-        <!-- Result -->
-        <div class="rounded result-container text-center">
-          <p id="resultHeader" class="pb-0 mb-0"> Congratulations! </p>
-          <p id="resultDescription" class="p-0 m-0"> You reached the 2048 number! </p>
+        <!-- Victory result -->
+        <div class="victoryDiv rounded result-container text-center">
+          <p class="resultHeader pb-0 mb-0"> Congratulations! </p>
+          <p class="resultDescription p-0 m-0"> You reached the 2048 number! </p>
 
           <!-- Image -->
-          <p> <img id="resultImage" src="assets/images/body/trophy.gif" alt="Result image"> </p>
+          <p> <img class="resultImage" src="assets/images/body/trophy.gif" alt="Result image"> </p>
 
           <div class="container">
-            <p> <img id="pointContainer" src="assets/images/body/pointContainer.png" alt="Points image"> </p>
-            <p id="pointsImage"> Hola </p>
+            <p> <img class="pointContainer" src="assets/images/body/pointContainer.png" alt="Points image"> </p>
+            <p class="pointsImage"> Hola </p>
           </div>
 
           <!-- Share button -->
-          <a id="shareButton" target="_blank" class="btn btn-primary" href="https://twitter.com/intent/tweet?text=Hello%20world">
+          <a target="_blank" class="shareButton btn btn-primary" href="https://twitter.com/intent/tweet?text=I%20have%20reached%20the%202048%20number!!%20https://uja2048.github.io">
+            Share in Twitter <span class="ml-2 fab fa-twitter"></span>
+          </a>
+        </div>
+
+        <!-- Defeat result result -->
+        <div class="defeatDiv rounded result-container text-center" style="display:none;">
+          <p class="resultHeader pb-0 mb-0"> Defeat </p>
+          <p class="resultDescription p-0 m-0"> You've lost...don't give up! </p>
+
+          <!-- Image -->
+          <p> <img src="assets/images/body/defeat.gif" width="30%" alt="Result image"> </p>
+
+          <div class="container">
+            <p> <img class="pointContainer" src="assets/images/body/pointContainer.png" alt="Points image"> </p>
+            <p class="pointsImage"> Hola </p>
+          </div>
+
+          <!-- Share button -->
+          <a target="_blank" class="shareButton btn btn-primary" href="https://twitter.com/intent/tweet?text=Hello%20world">
             Share in Twitter <span class="ml-2 fab fa-twitter"></span>
           </a>
         </div>
@@ -124,7 +143,7 @@
     <div class="row justify-content-center mt-5 mb-0">
       <div class="col-11 col-xl-5 col-md-6 text-center">
         <p style="letter-spacing:10px;"> HOW TO PLAY 2048</p>
-        <i class="fas fa-chevron-up fa-2x"></i>
+        <i class="fas fa-chevron-up fa-3x"></i>
 
         <!-- Description of how to play. It's collapsable -->
         <div id="howToPlayDescription" class="pt-2 small">
@@ -137,7 +156,7 @@
     </div>
   </div>
 
-  <footer class="pt-2 pt-md-5 mt-5">
+  <footer class="pt-5">
     <div class="container">
       <div class="row">
         <!-- Company -->

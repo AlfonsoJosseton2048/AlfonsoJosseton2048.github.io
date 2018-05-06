@@ -20,6 +20,7 @@ body {
   background-color: rgb(64, 64, 64);
   color: white;
   font-family: '2048', sans-serif;
+  height: 100%;
   padding-bottom: 0;
 }
 
@@ -56,7 +57,9 @@ body {
 
 footer {
   background-color: rgb(28, 28, 28);
+  height: calc(100vh - 1280px);
   margin-top: 8%;
+  min-height: 350px;
   padding-bottom: 5%;
   width: 100%;
 }
@@ -84,13 +87,13 @@ footer {
   width: 12%;
 }
 
-#pointContainer {
+.pointContainer {
   height: 80%;
   transform: translate(0, -50%);
   width: 80%;
 }
 
-#pointsImage {
+.pointsImage {
   font-size: 15px;
   transform: translate(0, -570%);
 }
@@ -109,11 +112,11 @@ footer {
   margin-top: 12%;
 }
 
-#resultDescription {
+.resultDescription {
   font-size: 20px;
 }
 
-#resultImage {
+.resultImage {
   height: 35%;
   margin-top: 5%;
   width: 35%;
@@ -128,8 +131,12 @@ footer {
   width: 100px;
 }
 
-#shareButton {
+.shareButton {
   transform: translate(0, -150%);
+}
+
+.ui-page-active {
+  outline: none;
 }
 
 
@@ -181,13 +188,13 @@ footer {
     display: block;
   }
 
-  #pointContainer {
+  .pointContainer {
     height: 90%;
     transform: translate(0, -65%);
     width: 90%;
   }
 
-  #pointsImage {
+  .pointsImage {
     font-size: 11px;
     transform: translate(0, -500%);
   }
@@ -202,11 +209,11 @@ footer {
     margin-top: 0;
   }
 
-  #resultDescription {
+  .resultDescription {
     font-size: 15px;
   }
 
-  #resultImage {
+  .resultImage {
     height: 37%;
     width: 37%;
   }
@@ -219,7 +226,7 @@ footer {
     width: 80px;
   }
 
-  #shareButton {
+  .shareButton {
     transform: translate(0, -180%);
   }
 }
