@@ -22,18 +22,18 @@
   <div class="container">
     <!-- Game name -->
     <div class="row justify-content-center mt-4">
-      <div class="line mr-3">
+      <div class="line mt-4 mr-3">
       </div>
       <div class="text-center">
-        <p class="header"> 2048 </p>
+        <img class="mb-3" src="assets/images/2048/logo.png" width="120px">
       </div>
-      <div class="line ml-2">
+      <div class="line mt-4 ml-2">
       </div>
     </div>
 
     <!-- Description -->
     <div class="row justify-content-center">
-      <div class="text-center">
+      <div class="text-center col-11">
         Join the numbers to get the 2048 tile!
       </div>
     </div>
@@ -43,13 +43,13 @@
       <!-- Current score -->
       <div id="currentScoreContainer" class="score rounded text-center">
         <h5> Score </h5>
-        <p id="currentScore" class="pt-2"> 0 </p>
+        <p class="currentScore"> 0 </p>
       </div>
 
       <!-- Best score -->
       <div id="bestScoreContainer" class="score rounded text-center ml-5">
         <h5> Best </h5>
-        <p id="bestScore" class="pt-2"> 0 </p>
+        <p class="bestScore"> 0 </p>
       </div>
     </div>
 
@@ -58,7 +58,7 @@
       <div id="board" class="board-container rounded mt-4">
 
         <!-- Victory result -->
-        <div class="victoryDiv rounded result-container text-center">
+        <div class="victoryDiv rounded result-container text-center" style="display:none;">
           <p class="resultHeader pb-0 mb-0"> Congratulations! </p>
           <p class="resultDescription p-0 m-0"> You reached the 2048 number! </p>
 
@@ -67,7 +67,7 @@
 
           <div class="container">
             <p> <img class="pointContainer" src="assets/images/body/pointContainer.png" alt="Points image"> </p>
-            <p class="pointsImage"> Hola </p>
+            <p class="pointsImage"> 0 </p>
           </div>
 
           <!-- Share button -->
@@ -78,8 +78,8 @@
 
         <!-- Defeat result result -->
         <div class="defeatDiv rounded result-container text-center" style="display:none;">
-          <p class="resultHeader pb-0 mb-0"> Defeat </p>
-          <p class="resultDescription p-0 m-0"> You've lost...don't give up! </p>
+          <p class="resultHeader pb-0 mb-0"> Game over! </p>
+          <p class="resultDescription p-0 m-0 mb-2"> Don't give up, you're closer to the objetive! </p>
 
           <!-- Image -->
           <p> <img src="assets/images/body/defeat.gif" width="30%" alt="Result image"> </p>
@@ -135,7 +135,7 @@
     <!-- Start a new game -->
     <div class="row justify-content-center mt-4">
       <div class="col-12 text-center">
-        <button class="btn btn-primary"> New game </button>
+        <button id="startNewGame" class="btn btn-primary"> New game </button>
       </div>
     </div>
 
@@ -156,37 +156,13 @@
     </div>
   </div>
 
-  <footer class="pt-5">
-    <div class="container">
-      <div class="row">
-        <!-- Company -->
-        <div class="col-12 col-md">
-          <img class="mb-2" src="assets/images/2048/logo.png" alt="2048 icon" width="80" height="80">
-          <small class="d-block mb-3 text-muted">© 2017-2018</small>
-        </div>
-
-        <div class="col-6 col-md">
-          <h5> Features </h5>
-          <ul class="list-unstyled text-small">
-            <li><a class="text-muted" href="https://getbootstrap.com/docs/4.1/examples/pricing/#">Cool stuff</a></li>
-          </ul>
-        </div>
-
-        <div class="col-6 col-md">
-          <h5>Resources</h5>
-          <ul class="list-unstyled text-small">
-            <li><a class="text-muted" href="https://getbootstrap.com/docs/4.1/examples/pricing/#">Resource</a></li>
-          </ul>
-        </div>
-
-        <div class="col-6 col-md">
-          <h5>About</h5>
-          <ul class="list-unstyled text-small">
-            <li><a class="text-muted" href="https://getbootstrap.com/docs/4.1/examples/pricing/#">Team</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
+  <footer class="my-5 pt-5 text-center text-small">
+    <p class="mb-1">© 2017-2018 Company Name</p>
+    <ul class="list-inline">
+      <li class="list-inline-item"><a href="#">Privacy</a></li>
+      <li class="list-inline-item"><a href="#">Terms</a></li>
+      <li class="list-inline-item"><a href="#">Support</a></li>
+    </ul>
   </footer>
 
   <!-- JavaScript required by Bootstrap. Placed at the end so the page loads faster -->
@@ -196,6 +172,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 
   <!-- Custom JS -->
+  <script src="assets/js/cookies.js"></script>
   <script src="assets/js/2048.js"></script>
 </body>
 </html>

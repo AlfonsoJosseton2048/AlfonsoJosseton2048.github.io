@@ -2,11 +2,22 @@ $(document).ready(function() {
 
   // Disable jQuery mobile text
   $.mobile.loading().hide();
-  
+
   // Init the game and the colors for each number
   mapBackground = initBackgrounds();
   mapForeground = initForegrounds();
-  game = new Board();
+
+  // Do we have cookies to load our components values?
+  // BEST SCORE cookie
+  var bestScore = getCookie('bestScore');
+  if (bestScore) {
+    $('.bestScore').first().text(bestScore);
+  }
+
+  // BOARD cookie
+  var board = getCookie('board');
+  var currentScore = getCookie('currentScore');
+  game = new Board(board, currentScore);
 
   // Hide 2048 tips
   $(document).on('click', '.fa-chevron-up', function() {
@@ -21,6 +32,11 @@ $(document).ready(function() {
 
     // Hide tips
     $('#howToPlayDescription').fadeOut(animationTime);
+  });
+
+  // Start a new game
+  $(document).on('click', '#startNewGame', function() {
+    game.resetGame();
   });
 
   // Show 2048 tips
@@ -191,17 +207,32 @@ const Status = {
 
 
 class Board {
-	constructor() {
-    // Intializing properties
-    this.acceptMove = true;       // We won't accept moves until the current one (if there's a move at this moment) is fully computed
-    this.occupiedCells = 0;
-    this.SIZE = 4;                // Size of the board
-    this.board = this.createBoard(0);     // 0 is the default value
-    this.moveFrom = this.createBoard(null);
+  // Crea una partida por defecto sin ninguna información previa
+	constructor(board, score) {
+    if (board) {
+      this.resetGame(false);
 
-    // By default the board already has 2 numbers (2 | 4).
-    this.makeNumberAppear();
-    this.makeNumberAppear();
+      // Modify the current score only if valid
+      if (score) {
+        this.points = parseInt(score);
+        $('.currentScore').text(score);
+      }
+
+      // Parse the given board with a format like [[32, 0, 2, 1], ...]
+      board = board.replace(/[\[\]]+/g, '');
+      var number = board.split(',');
+
+      for (var i = 0; i < this.SIZE; ++i) {
+        for (var j = 0; j < this.SIZE; ++j) {
+          this.board[i][j] = parseInt(number[i * this.SIZE + j]);
+          if (this.board[i][j] != 0) {
+            this.makeNumberAppear(this.board[i][j], [i, j]);
+          }
+        }
+      }
+    } else {
+      this.resetGame(true);
+    }
   }
 
   // Main method from our board. It represents the movement made with any arrow key
@@ -212,10 +243,16 @@ class Board {
 
       // Some variables for the move
   		var result = Status.CAN_MOVE;                      // As the game is not finished, the user can still move...
+      var previousPoints = this.points;
 
       // FIRST STEP: Gather those cells with the same number. It could find a 2048 cell...
   		var reached2048 = this.sumCells(move);
       var didMove = this.compactBoard(move);
+      // Save the grid as a cookie
+      setCookie('board', JSON.stringify(this.board));
+
+      // Change the numbers of points...
+      this.modifyScores(previousPoints, this.points);
 
       // Board still has empty positions...
   		if (this.occupiedCells < (this.SIZE * this.SIZE)) {
@@ -223,7 +260,7 @@ class Board {
         var $ref = this;
         setTimeout(function() {
             if (didMove) {
-  			        $ref.makeNumberAppear();
+  			        $ref.makeRandomNumberAppear();
             }
             $ref.acceptMove = true;
         }, 300);
@@ -233,7 +270,10 @@ class Board {
         if (this.isGameOver()) {
           result = Status.DEFEAT;
         } else {
-          this.acceptMove = true;
+          var $ref = this;
+          setTimeout(function() {
+              $ref.acceptMove = true;
+          }, 300);
         }
       } else {
   			result = Status.VICTORY;
@@ -533,9 +573,14 @@ class Board {
   }
 
   // Shows a new number in the board
-  makeNumberAppear() {
+  makeRandomNumberAppear() {
     var number = this.getRandomNumber();
     var position = this.getRandomEmptyPosition();
+    this.makeNumberAppear(number, position);
+  }
+
+  // Shows the specified number in the position that is also given
+  makeNumberAppear(number, position) {
     var background = mapBackground.get(number).join(',');
     var foreground = mapForeground.get(number).join(',');
     var div = '<div class="rounded cell-number" style="background-color: rgb(' + background + '); color: rgb(' + foreground + ');"><p>' + number + '</p></div>';
@@ -548,6 +593,32 @@ class Board {
 
     // Increase the number of cells
     this.occupiedCells += 1;
+  }
+
+  // Changes the scores values and creates the animation to show the difference of points
+  modifyScores(prevScore, nextScore) {
+    if (prevScore != nextScore) {
+      // Scores to manipulate and animate
+      var originalScore = $('.currentScore').first();
+      var clone = originalScore.first().clone();
+      $('#currentScoreContainer').append(clone);
+
+      // Animation to show the amount of points we've got, and score modification
+      clone.text('+' + (nextScore - prevScore));
+      clone.css('font-size', '17px');
+      clone.animate({top : '-=100px', 'opacity' : '0'}, 'slow', function() { clone.remove(); });
+      $('.currentScore').first().text(nextScore);
+
+      // Save the cookie with the current score
+      setCookie('currentScore', nextScore);
+
+      // Do we need to change the value of best score?
+      var bestScore = parseInt($('.bestScore').text());
+      if (bestScore < nextScore) {
+        $('.bestScore').text(nextScore);
+        setCookie('bestScore', nextScore, 365);
+      }
+    }
   }
 
   // Moves a cell from a origin position to a destiny with an animation
@@ -563,6 +634,28 @@ class Board {
       $cell.remove();
       $newElement.show();
     });
+  }
+
+  // Cleans all the variables and UI components to start a new game
+  resetGame(createNumbers = true) {
+    // Restarting properties
+    this.acceptMove = true;       // We won't accept moves until the current one (if there's a move at this moment) is fully computed
+    this.occupiedCells = 0;
+    this.SIZE = 4;                // Size of the board
+    this.board = this.createBoard(0);     // 0 is the default value
+    this.moveFrom = this.createBoard(null);
+    this.points = 0;
+
+    // Clean UI
+    $('div').remove('.cell-number');
+    $('.currentScore').text('0');
+
+
+    // By default the board already has 2 numbers (2 | 4).
+    if (createNumbers) {
+      this.makeRandomNumberAppear();
+      this.makeRandomNumberAppear();
+    }
   }
 
   // Joins cells with the same value
@@ -584,6 +677,7 @@ class Board {
               this.moveFrom[y][x] = [y, lastCoordinate];    // Save the origin of that merge move
               lastInt = -1;
               this.occupiedCells -= 1;
+              this.points += this.board[y][x];
 
               // Victory!!
               if (this.board[y][x] == 2048) {
@@ -608,6 +702,7 @@ class Board {
               this.moveFrom[y][x] = [y, lastCoordinate];
               lastInt = -1;
               this.occupiedCells -= 1;
+              this.points += this.board[y][x];
 
               if (this.board[y][x] == 2048) {
                 reached2048 = true;
@@ -631,6 +726,7 @@ class Board {
               this.moveFrom[y][x] = [lastCoordinate, x];
               lastInt = -1;
               this.occupiedCells -= 1;
+              this.points += this.board[y][x];
 
               if (this.board[y][x] == 2048) {
                 reached2048 = true;
@@ -654,6 +750,7 @@ class Board {
               this.moveFrom[y][x] = [lastCoordinate, x];
               lastInt = -1;
               this.occupiedCells -= 1;
+              this.points += this.board[y][x];
 
               if (this.board[y][x] == 2048) {
                 reached2048 = true;

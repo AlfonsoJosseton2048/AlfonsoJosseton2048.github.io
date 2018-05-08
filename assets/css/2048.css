@@ -55,13 +55,16 @@ body {
   margin-top: 20px;
 }
 
+.currentScore, .bestScore {
+  font-size: 16px;
+  margin-top: 8px;
+  position: absolute;
+  width: 100px;
+}
+
 footer {
-  background-color: rgb(28, 28, 28);
-  height: calc(100vh - 1280px);
+  color: white;
   margin-top: 8%;
-  min-height: 350px;
-  padding-bottom: 5%;
-  width: 100%;
 }
 
 .grid-row {
@@ -94,8 +97,8 @@ footer {
 }
 
 .pointsImage {
-  font-size: 15px;
-  transform: translate(0, -570%);
+  font-size: 25px;
+  transform: translate(0, -360%);
 }
 
 .result-container {
@@ -174,6 +177,13 @@ footer {
   }
   .cell-number p {
     margin-top: 15px;
+  }
+
+  .currentScore, .bestScore {
+    font-size: 13px;
+    margin-top: 3px;
+    position: absolute;
+    width: 80px;
   }
 
   .grid-row {
