@@ -262,8 +262,9 @@ class Board {
             if (didMove) {
   			        $ref.makeRandomNumberAppear();
             }
+            console.log('Cambio');
             $ref.acceptMove = true;
-        }, 300);
+        }, 160);
 
       // Otherwise, the board is full. If reached2048 is true then it's a victory
       } else if (!reached2048) {
@@ -273,7 +274,7 @@ class Board {
           var $ref = this;
           setTimeout(function() {
               $ref.acceptMove = true;
-          }, 300);
+          }, 160);
         }
       } else {
   			result = Status.VICTORY;
@@ -555,7 +556,7 @@ class Board {
     // 3. Depending on the type of movement, we still need to move the number in the origin until another position
     // The following animation can only be done once, we need to create a clone...
     var $newElement = this.createClone((posDestiny != null) ? posDestiny : posInter);
-    var time = 120;
+    var time = 80;
     $numberDiv.animateMergeAndAppendTo('#' + posDestinyString, time, function() {
       $numberDiv.remove();
       $newElement.show();
@@ -605,7 +606,7 @@ class Board {
 
       // Animation to show the amount of points we've got, and score modification
       clone.text('+' + (nextScore - prevScore));
-      clone.css('font-size', '17px');
+      clone.css('font-size', '18px');
       clone.animate({top : '-=100px', 'opacity' : '0'}, 'slow', function() { clone.remove(); });
       $('.currentScore').first().text(nextScore);
 

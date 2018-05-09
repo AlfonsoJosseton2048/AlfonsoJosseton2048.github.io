@@ -1,7 +1,7 @@
 /* Custom fonts */
 @font-face {
     font-family: '2048';
-    src: url('https://www.apple.com/wss/fonts/SF-Pro-Display/v1/sf-pro-display_regular.woff2') format('woff2');
+    src: url('../fonts/sf-regular.woff2') format('woff2');
 }
 
 .board {
@@ -55,11 +55,35 @@ body {
   margin-top: 20px;
 }
 
+.cookies-message {
+  background-color: rgb(0, 0, 0);
+  bottom: 0;
+  left: 0;
+  opacity: 0.85;
+  position: fixed;
+  width: 100%;
+}
+
 .currentScore, .bestScore {
   font-size: 16px;
   margin-top: 8px;
   position: absolute;
   width: 100px;
+}
+
+.fa {
+  background-color: rgb(128, 128, 128);
+  border-radius: 50%;
+  color: white;
+  height: 50px;
+  padding-top: 12px;
+  text-align: center;
+  width: 50px;
+}
+
+.fa:hover {
+  background-color: rgb(150, 150, 150);
+  color: rgb(220, 220, 220);
 }
 
 footer {
@@ -82,6 +106,12 @@ footer {
 .header {
   font-size: 300%;
   letter-spacing: 10px;
+}
+
+#ignoreCookies {
+  position: absolute;
+  right: 15px;
+  top: 20%;
 }
 
 .line {
