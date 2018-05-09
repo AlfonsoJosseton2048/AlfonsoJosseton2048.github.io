@@ -249,7 +249,7 @@ class Board {
   		var reached2048 = this.sumCells(move);
       var didMove = this.compactBoard(move);
       // Save the grid as a cookie
-      setCookie('board', JSON.stringify(this.board));
+      setCookie('board', JSON.stringify(this.board), 365);
 
       // Change the numbers of points...
       this.modifyScores(previousPoints, this.points);
@@ -611,7 +611,7 @@ class Board {
       $('.currentScore').first().text(nextScore);
 
       // Save the cookie with the current score
-      setCookie('currentScore', nextScore);
+      setCookie('currentScore', nextScore, 365);
 
       // Do we need to change the value of best score?
       var bestScore = parseInt($('.bestScore').text());
