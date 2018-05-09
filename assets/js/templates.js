@@ -4,7 +4,8 @@ $(document).ready(function() {
 
   // Do we need to show the cookies message?
   var cookies = getCookie('ignoreMessage');
-  if (cookies == "") {
+  console.log(cookies);
+  if (cookies != 'clicked') {
     $('body').load('templates/cookies.html');
   }
 
