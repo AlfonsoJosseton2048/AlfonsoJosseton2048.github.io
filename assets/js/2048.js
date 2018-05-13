@@ -3,6 +3,9 @@ $(document).ready(function() {
   // Disable jQuery mobile text
   $.mobile.loading().hide();
 
+  // Some constraints for the game
+  TWEET_LINK = 'https://twitter.com/intent/tweet?text=';
+
   // Init the game and the colors for each number
   mapBackground = initBackgrounds();
   mapForeground = initForegrounds();
@@ -248,27 +251,31 @@ class Board {
       // FIRST STEP: Gather those cells with the same number. It could find a 2048 cell...
   		var reached2048 = this.sumCells(move);
       var didMove = this.compactBoard(move);
-      // Save the grid as a cookie
-      setCookie('board', JSON.stringify(this.board), 365);
 
       // Change the numbers of points...
       this.modifyScores(previousPoints, this.points);
 
       // Board still has empty positions...
-  		if (this.occupiedCells < (this.SIZE * this.SIZE)) {
+      if (reached2048) {
+        this.buildEndGamePanel(true, this.points);
+        result = Status.VICTORY;
+      } else if (this.occupiedCells < (this.SIZE * this.SIZE)) {
         // Make a new number appear when the animations are over
         var $ref = this;
         setTimeout(function() {
             if (didMove) {
   			        $ref.makeRandomNumberAppear();
+
+                // Save the grid as a cookie once the new number appears
+                setCookie('board', JSON.stringify($ref.board), 365);
             }
-            console.log('Cambio');
             $ref.acceptMove = true;
         }, 160);
 
       // Otherwise, the board is full. If reached2048 is true then it's a victory
       } else if (!reached2048) {
         if (this.isGameOver()) {
+          this.buildEndGamePanel(false, this.points);
           result = Status.DEFEAT;
         } else {
           var $ref = this;
@@ -276,8 +283,6 @@ class Board {
               $ref.acceptMove = true;
           }, 160);
         }
-      } else {
-  			result = Status.VICTORY;
       }
 
   		return result;
@@ -285,6 +290,23 @@ class Board {
   }
 
   /// PRIVATE METHODS
+
+  // Builds the content of the end-game panel with the specified amount of points and a
+  // correct link.
+  buildEndGamePanel(victory, points) {
+    if (victory) {
+      var div = $('.victoryDiv');
+      var link = TWEET_LINK + 'I\'ve won a game of 2048 with ' + points + ' points! https://uja2048.github.io';
+    } else {
+      var div = $('.defeatDiv');
+      var link = TWEET_LINK  + 'I\'ve got ' + points + ' in a 2048 game! https://uja2048.github.io';
+    }
+
+    // Modify the division with the number of points and the proper link
+    div.find('.pointsImage').text(points);
+    div.find('a').attr('href', link.split(' ').join('%20'));
+    div.fadeIn('slow');
+  }
 
   // Create an empty board
   createBoard(defaultContent) {
@@ -639,6 +661,14 @@ class Board {
 
   // Cleans all the variables and UI components to start a new game
   resetGame(createNumbers = true) {
+    // Hide end-game panels
+    $('#victoryDiv').hide();
+    $('#defeatDiv').hide();
+
+    // Delete the cookies of the current game
+    setCookie('currentScore', 0, -1);
+    setCookie('board', 0, -1);
+
     // Restarting properties
     this.acceptMove = true;       // We won't accept moves until the current one (if there's a move at this moment) is fully computed
     this.occupiedCells = 0;

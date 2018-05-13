@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> Issues </title>
+
+  <!-- Metadatos -->
+  <meta charset="utf-8">
+  <link rel="icon" href="assets/images/2048/logo.png">
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+  <!-- Fontsawesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+
+  <!-- Our CSS files -->
+  <link rel="stylesheet" href="assets/css/2048.css">
+</head>
+<body>
+  <div class="container">
+    <div id="header"> </div>
+
+    <!-- Send a issue report -->
+    <div class="row mt-4 justify-content-center">
+      <!-- Button to display the modal window to add a new issue description -->
+      <button id="reportIssueButton" class="btn btn-primary" data-toggle="modal" data-target="#reportIssueModal">
+        <small> Create an issue <i class="ml-1 far fa-comment"></i> </small>
+      </button>
+
+      <!-- Modal display to insert the issue information -->
+      <div class="modal fade" id="reportIssueModal" tabindex="-1" role="dialog" aria-labelledby="reportIssueModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <!-- Header of the window -->
+            <div class="modal-header">
+              <h5 class="modal-title" id="reportIssueModalLabel">Report bug</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <!-- Information -->
+            <div class="modal-body">
+              <form>
+                <!-- Title of the issue -->
+                <div class="form-group">
+                  <label for="titleInsertIssue" class="col-form-label">Title <small> (required)</small>:</label>
+                  <input type="text" class="form-control" id="titleIssueBug">
+                </div>
+
+                <!-- Description -->
+                <div class="form-group">
+                  <label for="descriptionInsertIssue" class="col-form-label">Description <small> (required)</small>:</label>
+                  <textarea class="form-control" id="descriptionInsertIssue"></textarea>
+                </div>
+
+                <!-- Image (if any) -->
+                <label for="inputImage" class="col-form-label">Image <small> (if any)</small>:</label>
+                <div id="inputImage" class="input-group">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="inputGroupFile04">
+                    <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
+                  </div>
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button">Button</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Send message</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Board of bugs -->
+    <div class="mt-2 card bug-board">
+      <div class="card-header">
+        <!-- Options of the board -->
+        <div class="row justify-content-between text-muted">
+          <!-- Board header -->
+          <div class="ml-3">
+            List of bugs reported by users
+          </div>
+
+          <!-- Type of sort -->
+          <div class="text-right">
+            <!-- How do you want to sort the list of bugs? -->
+            <p class="dropdown-toggle mb-0 mr-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Sort
+            </p>
+            <!-- Dropdown -->
+            <div class="dropdown-menu dropdown-menu-right">
+              <h6 class="dropdown-header">Type of sort</h6>
+              <button class="dropdown-item active" type="button">Newest</button>
+              <button class="dropdown-item" type="button">Oldest</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- List of bugs -->
+      <div class="card-body bug-list p-0 m-0">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+              <h6 class="m-0 p-0">
+                <i class="mr-2 fas fa-exclamation-circle"></i>
+                I'm so bored
+              </h6>
+              <p class="small text-muted m-0 p-0 pt-2"> Date: 10/05/2018 </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <footer id="footer"> </footer>
+
+  <!-- JavaScript required by Bootstrap. Placed at the end so the page loads faster -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+  <!-- Custom JS -->
+  <script src="assets/js/bug_traq.js"></script>
+  <script src="assets/js/cookies.js"></script>
+  <script src="assets/js/templates.js"></script>
+</body>
+</html>

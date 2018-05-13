@@ -29,6 +29,15 @@ body {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
+.bug-board {
+  color: black;
+}
+
+.bug-list {
+  max-height: 800px;
+  overflow-y: auto;
+}
+
 /* Board cell */
 .cell {
   background: rgba(238, 228, 218, 0.35);
@@ -118,6 +127,10 @@ footer {
   border-bottom: 1px solid white;
   height: 35px;
   width: 12%;
+}
+
+.modal {
+  color: black;
 }
 
 .pointContainer {
