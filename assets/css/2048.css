@@ -133,6 +133,10 @@ footer {
   color: black;
 }
 
+.page-item {
+  color: gray;
+}
+
 .pointContainer {
   height: 80%;
   transform: translate(0, -50%);

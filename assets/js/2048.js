@@ -90,12 +90,12 @@ $(document).ready(function() {
 
   $('#board').on('swipeup', function(e) {
     e.preventDefault();
-    game.move(Move.TOP);
+    game.move(Move.UP);
   });
 
   $('#board').on('swipedown', function(e) {
     e.preventDefault();
-    game.move(Move.BOTTOM);
+    game.move(Move.DOWN);
   });
 
 
