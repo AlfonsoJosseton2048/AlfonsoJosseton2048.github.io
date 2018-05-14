@@ -58,18 +58,18 @@
                 <label for="inputImage" class="col-form-label">Image <small> (if any)</small>:</label>
                 <div id="inputImage" class="input-group">
                   <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="imageInsertIssue">
-                    <label class="custom-file-label" for="imageInsertIssue">Choose image</label>
+                    <input accept="image/*" type="file" class="custom-file-input" id="imageInsertIssue">
+                    <label id="imageInsertIssueLabel" class="custom-file-label" for="imageInsertIssue">Choose image</label>
                   </div>
                 </div>
 
                 <!-- Error message -->
-                <p id="errorInsertUser" class="small mt-3" style="color:red;"></p>
+                <p id="errorInsertIssue" class="small mt-3" style="color:red;"></p>
               </form>
             </div>
             <div class="modal-footer">
               <button id="closeModal" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button id="createIssue" type="button" class="btn btn-primary">Send message</button>
+              <button id="createIssue" type="button" class="btn btn-primary">Create issue</button>
             </div>
           </div>
         </div>
@@ -83,20 +83,20 @@
         <div class="row justify-content-between text-muted">
           <!-- Board header -->
           <div class="ml-3">
-            List of bugs reported by users
+            List of issues reported by users
           </div>
 
           <!-- Type of sort -->
           <div class="text-right">
             <!-- How do you want to sort the list of bugs? -->
-            <button class="btn btn-light dropdown-toggle mb-0 mr-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <p class="dropdown-toggle m-0 mr-3 ml-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Sort
-            </button>
+            </p>
             <!-- Dropdown -->
             <div class="dropdown-menu dropdown-menu-right">
               <h6 class="dropdown-header">Type of sort</h6>
-              <button class="dropdown-item active" type="button">Newest</button>
-              <button class="dropdown-item" type="button">Oldest</button>
+              <button class="dropdown-item" type="button">Newest</button>
+              <button class="dropdown-item active" type="button">Oldest</button>
             </div>
           </div>
         </div>
@@ -105,39 +105,47 @@
       <!-- List of bugs -->
       <div class="card-body bug-list p-0 m-0">
         <ul id="issueList" class="list-group list-group-flush">
-          <li class="list-group-item">
-              <h6 class="m-0 p-0">
-                <i class="mr-2 fas fa-exclamation-circle"></i>
-                I'm so bored
-              </h6>
-              <p class="small text-muted m-0 p-0 pt-2"> Date: 10/05/2018 </p>
-          </li>
         </ul>
       </div>
-    </div>
-  </div>
 
-  <!-- Pagination -->
-  <div class="row justify-content-center mt-4">
-    <nav aria-label="...">
-      <ul class="pagination">
-        <li class="page-item">
-          <a class="page-link">First</a>
-        </li>
-        <li class="page-item"
-          ><a class="page-link">1</a>
-        </li>
-        <li class="page-item active">
-          <a class="page-link">2 <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="page-item">
-          <a class="page-link">3</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link">Last</a>
-        </li>
-      </ul>
-    </nav>
+      <!-- Modal with the information of an issue -->
+      <div class="modal fade" id="issueInfoModal" tabindex="-1" role="dialog" aria-labelledby="issueInfoModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <!-- Header with the issue identifier -->
+              <h5 id="issueInfoIdentifier" class="modal-title" style="max-width: 80%;">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div id="bodyIssueInfo">
+                <!-- Title of the issue -->
+                <p class="small text-muted p-0 m-0">Title</p>
+                <h6 id="issueInfoTitle"> </h6>
+
+                <!-- Description of the issue -->
+                <p class="small text-muted p-0 m-0 pt-4">Description</p>
+                <p id="issueInfoDescription"> </p>
+
+                <!-- Image of the issue -->
+                <div id="imageBlock">
+                  <p class="small text-muted p-0 m-0 pt-4 pb-4">Image</p>
+                  <img id="issueInfoImage" style="width:100%;">
+                </div>
+              </div>
+
+              <p id="errorIssueInfo" class="small" style="color: red;">This issue is not available at this moment.</p> 
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 
   <footer id="footer"> </footer>
@@ -149,8 +157,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 
   <!-- Firebase JS -->
-  <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
 
   <!-- Custom JS -->
   <script src="assets/js/issues.js"></script>
