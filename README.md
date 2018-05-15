@@ -2,7 +2,7 @@
 **Welcome to the Home page of UJA 2048!**
 
 <p align="center"> 
-  <img src="https://raw.github.com/UJA2048/UJA2048.github.io/master/assets/images/2048/logo.png" width="140px" alt="UJA-2048 icon">
+  <img src="https://github.com/UJA2048/UJA2048.github.io/blob/master/assets/images/2048/logo.png" width="140px" alt="UJA-2048 icon">
 </p>
 
 ### Table of Contents
@@ -15,7 +15,7 @@ All you need to do is to **merge identical numbers**, this way you can reach hig
 As the game name says, you will get the **victory** once the **2048 value is reached**.
 
 <p align="center"> 
-  <img src="https://raw.github.com/UJA2048/UJA2048.github.io/master/assets/images/examples/board.jpg" width="300px" alt="board">
+  <img src="https://github.com/UJA2048/UJA2048.github.io/blob/master/assets/images/examples/board.JPG" width="300px" alt="board">
 </p>
 
 You can **merge the numbers by using the arrows keys**:
