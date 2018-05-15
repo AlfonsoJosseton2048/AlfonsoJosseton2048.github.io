@@ -259,7 +259,16 @@ class Board {
       if (reached2048) {
         this.buildEndGamePanel(true, this.points);
         result = Status.VICTORY;
+
+        // Delete the cookies
+        this.deleteCurrentGameCookies();
       } else if (this.occupiedCells < (this.SIZE * this.SIZE)) {
+        // If it's the first time we're executing a timeout, we'll get a delay, so we need to calculate the timeout
+        var timeout = 160;
+        if ((this.occupiedCells == 2) && (this.points == 0)) {
+          timeout = 0;
+        }
+
         // Make a new number appear when the animations are over
         var $ref = this;
         setTimeout(function() {
@@ -270,13 +279,16 @@ class Board {
                 setCookie('board', JSON.stringify($ref.board), 365);
             }
             $ref.acceptMove = true;
-        }, 160);
+        }, timeout);
 
       // Otherwise, the board is full. If reached2048 is true then it's a victory
       } else if (!reached2048) {
         if (this.isGameOver()) {
           this.buildEndGamePanel(false, this.points);
           result = Status.DEFEAT;
+
+          // Delete the cookies
+          this.deleteCurrentGameCookies();
         } else {
           var $ref = this;
           setTimeout(function() {
@@ -299,7 +311,7 @@ class Board {
       var link = TWEET_LINK + 'I\'ve won a game of 2048 with ' + points + ' points! https://uja2048.github.io';
     } else {
       var div = $('.defeatDiv');
-      var link = TWEET_LINK  + 'I\'ve got ' + points + ' in a 2048 game! https://uja2048.github.io';
+      var link = TWEET_LINK  + 'I\'ve got ' + points + ' points in a 2048 game! https://uja2048.github.io';
     }
 
     // Modify the division with the number of points and the proper link
@@ -501,6 +513,12 @@ class Board {
     return didMove;
   }
 
+  // Deletes the score and the board of the current game
+  deleteCurrentGameCookies() {
+    setCookie('currentScore', 0, -1);
+    setCookie('board', 0, -1);
+  }
+
   // Generates an initial number: 2 or 4
   getRandomNumber() {
     var possibleNumber = [2, 2, 4, 2, 2, 2, 2, 2, 4, 2];
@@ -666,8 +684,7 @@ class Board {
     $('#defeatDiv').hide();
 
     // Delete the cookies of the current game
-    setCookie('currentScore', 0, -1);
-    setCookie('board', 0, -1);
+    this.deleteCurrentGameCookies();
 
     // Restarting properties
     this.acceptMove = true;       // We won't accept moves until the current one (if there's a move at this moment) is fully computed
@@ -680,7 +697,6 @@ class Board {
     // Clean UI
     $('div').remove('.cell-number');
     $('.currentScore').text('0');
-
 
     // By default the board already has 2 numbers (2 | 4).
     if (createNumbers) {
