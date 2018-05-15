@@ -1,4 +1,7 @@
 $(document).ready(function() {
+  // Sorting type
+  var sortType = "Oldest";
+
   // Initialize Firebase
   var config = {
     apiKey: "AIzaSyDo6ilThVghK4ctbORrJ7ujJrl6IF39VHs",
@@ -17,6 +20,14 @@ $(document).ready(function() {
   // Listeners
   db.ref().child('issues').on('child_added', function(snapshot) {
 		addIssue(snapshot.key, snapshot.val().title, snapshot.val().description, snapshot.val().date);
+	});
+
+  db.ref().child('issues').on('child_changed', function(snapshot) {
+    updateIssue(snapshot.key, snapshot.val().title, snapshot.val().date);
+	});
+
+  db.ref().child('issues').on('child_removed', function(snapshot) {
+    $('#' + snapshot.key).remove();
 	});
 
 
@@ -47,6 +58,7 @@ $(document).ready(function() {
     $('.dropdown-item').removeClass('active');
     $(this).addClass('active');
 
+    sortType = $(this).text();
     sortList($(this).text());
   });
 
@@ -76,12 +88,19 @@ $(document).ready(function() {
   function addIssue(key, title, description, dateTimestamp) {
     var date = new Date(dateTimestamp);
     var dateString = 'Date: ' + date.toGMTString();
-    $('#issueList').append('<li id="' + key + '" class="list-group-item ml-0">' +
-                            '<button class="btn btn-link m-0 p-0" data-toggle="modal" data-target="#issueInfoModal">' +
-                              '<h6 class="m-0 p-0"><i class="mr-2 fas fa-exclamation-circle"></i>' + title + '</h6>' +
-                            '</button>' +
-                            '<p class="small text-muted m-0 p-0 pt-2 pl-4 ml-1">' + dateString + '</p>' +
-                           '</li>');
+    var newIssue = '<li id="' + key + '" class="list-group-item ml-0">' +
+                    '<button class="btn btn-link m-0 p-0" data-toggle="modal" data-target="#issueInfoModal">' +
+                      '<h6 class="m-0 p-0"><i class="mr-2 fas fa-exclamation-circle"></i>' + title + '</h6>' +
+                    '</button>' +
+                    '<p class="small text-muted m-0 p-0 pt-2 pl-4 ml-1">' + dateString + '</p>' +
+                   '</li>';
+
+    // Where do we have to insert this new issue? At the beginning or at the end of the list?
+    if (sortType == 'Newest') {
+      $('#issueList').prepend(newIssue);
+    } else {
+      $('#issueList').append(newIssue);
+    }
   }
 
   // Modify the modal information when an issue is clicked
@@ -148,6 +167,16 @@ $(document).ready(function() {
     }
   }
 
+  function updateIssue(key, title, dateTimestamp) {
+    var titleString = '<i class="mr-2 fas fa-exclamation-circle"></i>' + title;
+    var date = new Date(dateTimestamp);
+    var dateString = 'Date: ' + date.toGMTString();
+
+    // Modify data
+    $('#' + key).find('h6').html(titleString);
+    $('#' + key).find('p').text(dateString);
+  }
+
   function uploadIssue(title, description, file) {
     // We need a new key, for the image name and the identifier of the issue in the realtime database
     var key = db.ref('issues').push().key;
@@ -173,5 +202,8 @@ $(document).ready(function() {
       description: description,
       date: Date.now()
     });
+
+    // Once the issue is uploaded, dismiss the modal view...
+    $('#reportIssueModal').find('.close').click();
   }
 });
