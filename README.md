@@ -44,8 +44,8 @@ Everytime you press an arrow key or use an swipe gesture, **if you move or colli
   <img src="assets/images/examples/newNumberExample.gif" width="320px" alt="new-number">
 </p>
 
-If you 'collect' :stuck_out_tongue_winking_eye: as many numbers as cells has the board, then you are in trouble!! :warning: <br>
-If you still have any move where you can collide cells you're still alive, but it will be hard to get out of that situation  :expressionless:
+If you collect as many numbers as cells has the board, then you are in trouble!! :warning: <br>
+If you still have any move where you can collide cells you're still alive, but it will be hard to get out of that situation
 
 <br>
 The moment where you can't do any move (thus, the board is totally occuppied by numbers) you're not in trouble but totally defeated :wink:
