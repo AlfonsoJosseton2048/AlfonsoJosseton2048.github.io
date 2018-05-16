@@ -7,13 +7,13 @@
 
 ### Table of Contents
 **[How to play](#how-to-play)**<br>
-**[Issues](#how-to-play)**<br>
+**[Issues](#issues)**<br>
 **[Technologies](#technologies)**<br>
 
 ## How to play
 A 2048 game is played in a **4x4 board**, where you will have several numbers...<br>
 All you need to do is to **merge identical numbers**, this way you can reach higher values.<br>
-As the game name says, you will get the **victory** once the **2048 value is reached**.
+As the game name says, you will get the **victory** once the **2048 value is reached**. :tada: :tada:
 
 <p align="center">
   <img src="assets/images/examples/board.png" width="320px" alt="board">
@@ -53,3 +53,26 @@ The moment where you can't do any move (thus, the board is totally occuppied by 
 <p align="center">
   <img src="assets/images/examples/gameOverExample.gif" width="320px" alt="new-number">
 </p>
+
+The screen you must reach looks like that:
+
+<p align="center">
+  <img src="assets/images/examples/victoryExample.gif" width="320px" alt="new-number">
+</p>
+
+
+## Issues
+We're opened to suggestions, that's why we've created a small ['Issues' page](https://uja2048.github.io/issues.html), like the Github one :octocat: where you can only create and check the issues other users submitted. <br>
+That could be nice in case you don't want to sign in Github or you don't have an account. <br>
+
+Otherwise we prefer you to submit your issue to [Github](https://github.com/UJA2048/UJA2048.github.io/issues), so we can discuss and interact with other users. That's up to you!
+
+## Technologies
+Which technologies have we used?
+* [HTML5](https://www.w3schools.com/html/html5_intro.asp)
+* [CSS](https://www.w3schools.com/css/default.asp)
+* [Bootstrap](https://getbootstrap.com/)
+* [jQuery](https://jquery.com/)
+* [jQuery Mobile](http://jquerymobile.com/)
+* [jQuery API](https://api.jquery.com/)
+* [Firebase](https://firebase.google.com/?hl=es-419)
