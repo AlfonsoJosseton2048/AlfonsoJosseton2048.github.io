@@ -7,6 +7,7 @@
 
 ### Table of Contents
 **[How to play](#how-to-play)**<br>
+**[Issues](#how-to-play)**<br>
 **[Technologies](#technologies)**<br>
 
 ## How to play
