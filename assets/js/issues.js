@@ -44,7 +44,9 @@ $(document).ready(function() {
 
     // Are the input values valid?
     if (title && description) {
-      // Do we need to upload an image? If anyone has been chosen
+      title = filterXSS(title);
+      description = filterXSS(description)
+
       uploadIssue(title, description, file);
     } else {
       $('#errorInsertIssue').text('The title and the description of the issue cannot be empty.');
@@ -122,10 +124,14 @@ $(document).ready(function() {
         $('#imageBlock').css('display', 'none');  // By default the block with image will be hidden
 
         var issuesRef = storage.ref().child('issues/' + issueId + '.png');
-        issuesRef.getDownloadURL().then(function(url) {
-          $('#imageBlock').css('display', 'block');
-          $('#issueInfoImage').attr('src', url);
-        })
+        issuesRef.getDownloadURL().then(
+        // Success function
+          function(url) {
+            $('#imageBlock').css('display', 'block');
+            $('#issueInfoImage').attr('src', url);
+          },
+          function(error) {});
+
       } else {
         // Hide the body and show the error message
         $('#bodyIssueInfo').css('display', 'none');

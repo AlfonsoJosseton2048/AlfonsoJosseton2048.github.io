@@ -1,3 +1,9 @@
+![markdown](https://img.shields.io/badge/markdown-HTML5-green.svg)
+![stylesheet](https://img.shields.io/badge/stylesheet-CSS3-green.svg)
+![javascript](https://img.shields.io/badge/javascript-jQuery-green.svg)
+![database](https://img.shields.io/badge/database-Firebase-green.svg)
+![license](https://img.shields.io/badge/license-Apache-blue.svg)
+
 # UJA 2048
 **Welcome to the Home page of UJA 2048!**
 
@@ -11,9 +17,9 @@
 **[Technologies](#technologies)**<br>
 
 ## How to play
-A 2048 game is played in a **4x4 board**, where you will have several numbers...<br>
+2048 is a board game where you will have only even numbers.
 All you need to do is to **merge identical numbers**, this way you can reach higher values.<br>
-As the game name says, you will get the **victory** once the **2048 value is reached**. :tada: :tada:
+You will get the **victory** once the **2048 value is reached**. :tada: :tada:
 
 <p align="center">
   <img src="assets/images/examples/board.png" width="320px" alt="board">
@@ -38,17 +44,17 @@ Using the arrows or the swipe gesture could make some cells collide, but that ev
   <img src="assets/images/examples/swipeDownExample.png" width="320px" alt="swipe down example">
 </p>
 
-Everytime you press an arrow key or use an swipe gesture, **if you move or collide any cell, a new number will appear!** This way you collect more and more numbers...
+Everytime you press an arrow key or use an swipe gesture, **if you move or collide any cell, a new number will appear!** This way you get more and more numbers...
 
 <p align="center">
   <img src="assets/images/examples/newNumberExample.gif" width="320px" alt="new-number">
 </p>
 
-If you collect as many numbers as cells has the board, then you are in trouble!! :warning: <br>
-If you still have any move where you can collide cells you're still alive, but it will be hard to get out of that situation
+If you get as many numbers as cells has the board, then you are in trouble!! :warning: <br>
+If you still have any move where you can collide cells your game is still alive, but it will be hard to get out of that situation.
 
 <br>
-The moment where you can't do any move (thus, the board is totally occuppied by numbers) you're not in trouble but totally defeated :wink:
+That moment where you can't do any move (thus, the board is totally occuppied by numbers) then your game is completely lost. :wink:
 
 <p align="center">
   <img src="assets/images/examples/gameOverExample.gif" width="320px" alt="new-number">
