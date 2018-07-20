@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+  // Initialize scroll animations
+  AOS.init();
+
   // Disable jQuery mobile text
   $.mobile.loading().hide();
 
