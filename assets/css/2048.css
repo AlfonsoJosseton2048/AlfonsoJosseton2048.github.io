@@ -70,10 +70,11 @@ body {
 }
 
 .cookies-message {
-  background-color: rgb(0, 0, 0);
+  background-color: white;
   bottom: 0;
+  color: black;
   left: 0;
-  opacity: 0.6;
+  opacity: 0.95;
   position: fixed;
   width: 100%;
 }
@@ -206,11 +207,17 @@ html {
 
 /* Current and best score! */
 .score {
-  background-color: rgb(128, 128, 128);
+  background-color: rgb(243, 223, 110);
+  color: black;
   font-size: 80%;
   height: 90px;
   padding-top: 10px;
   width: 100px;
+
+  /* Inner shadow */
+  -webkit-box-shadow: inset 0px 0px 34px 21px rgba(0,0,0,0.13);
+  -moz-box-shadow: inset 0px 0px 34px 21px rgba(0,0,0,0.13);
+  box-shadow: inset 0px 0px 34px 21px rgba(0,0,0,0.13);
 }
 
 .shareButton {
