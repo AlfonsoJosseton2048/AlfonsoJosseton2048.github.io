@@ -4,15 +4,10 @@
     src: url('../fonts/sf-regular.woff2') format('woff2');
 }
 
-* {
-  /* Animation */
-  -moz-transition: all 0.3s;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-}
-
 .board {
 	margin: auto;
+  margin-bottom: 0;
+  padding-bottom: 0;
   width: 470px;
 	z-index: 1;
 }
@@ -24,11 +19,14 @@
 }
 
 body {
-  background-color: rgb(64, 64, 64);
+  background-attachment: fixed;
+  background-image: url('../images/body/background.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   color: white;
   font-family: '2048', sans-serif;
-  height: 100%;
-  padding-bottom: 0;
+  min-height: 100%;
 }
 
 /* Shadow for the navigation bar  */
@@ -88,14 +86,22 @@ body {
 }
 
 .fa {
-  background-color: rgb(100, 100, 100);
+  background-color: rgb(51, 51, 51);
   border-radius: 50%;
-  color: rgb(200, 200, 200);
-  font-size: 14px;
-  height: 50px;
-  padding-top: 12px;
+  color: rgb(109, 109, 109);
+  font-size: 20px;
+  height: 40px;
+  margin-left: 12px;
+  margin-right: 8px;
+  margin-top: 10px;
+  padding-top: 10px;
   text-align: center;
-  width: 50px;
+  width: 40px;
+
+  /* Animation */
+  -moz-transition: all 1s;
+  -webkit-transition: all 1s;
+  transition: all 1s;
 }
 
 .fa:hover {
@@ -103,8 +109,14 @@ body {
 }
 
 footer {
+  background-color: black;
   color: white;
-  margin-top: 8%;
+  padding-bottom: 5%;
+  margin-top: 6.5%;
+}
+
+.footer-content {
+  margin: auto;
 }
 
 .grid-row {
@@ -130,6 +142,10 @@ footer {
 
 #howToPlayDescription {
   font-size: 90%;
+}
+
+html {
+  background-color: black;
 }
 
 #ignoreCookies {
@@ -199,6 +215,9 @@ footer {
 
 .shareButton {
   transform: translate(0, -150%);
+}
+
+.socialMediaLinks {
 }
 
 .ui-page-active {
