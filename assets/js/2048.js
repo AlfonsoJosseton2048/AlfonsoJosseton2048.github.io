@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
   // Initialize scroll animations
   AOS.init();
 
@@ -25,39 +24,9 @@ $(document).ready(function() {
   var currentScore = getCookie('currentScore');
   game = new Board(board, currentScore);
 
-  // Hide 2048 tips
-  $(document).on('click', '.fa-chevron-up', function() {
-    var $arrowUp = $(this);
-    var animationTime = 1000;
-
-    // Change arrow, from up to down
-    $(this).animateRotate(180, animationTime, function() {
-      $arrowUp.removeClass('fa-chevron-up').addClass('fa-chevron-down');
-      $arrowUp.animateRotate(0);
-    });
-
-    // Hide tips
-    $('#howToPlayDescription').fadeOut(animationTime);
-  });
-
   // Start a new game
   $(document).on('click', '#startNewGame', function() {
     game.resetGame();
-  });
-
-  // Show 2048 tips
-  $(document).on('click', '.fa-chevron-down', function() {
-    var $arrowDown = $(this);
-    var animationTime = 1000;
-
-    // Change arrow, from down to up
-    $(this).animateRotate(180, animationTime, function() {
-      $arrowDown.removeClass('fa-chevron-down').addClass('fa-chevron-up');
-      $arrowDown.animateRotate(0);
-    });
-
-    // Hide tips
-    $('#howToPlayDescription').fadeIn(animationTime);
   });
 
   // Listen for arrow events (moves for the game)
@@ -147,23 +116,6 @@ $(document).ready(function() {
 
     return map;
   }
-
-  // Rotation plugin
-  $.fn.animateRotate = function(angle, duration, complete) {
-    return this.each(function() {
-      var $elem = $(this);
-
-      $({deg: 0}).animate({deg: angle}, {
-        duration: duration,
-        step: function(now) {
-          $elem.css({
-            transform: 'rotate(' + now + 'deg)'
-          });
-        },
-        complete: complete || $.noop
-      });
-    });
-  };
 
   // AppendTo animation plugin
   $.fn.animateAppendTo = function(sel, speed, yourFunc) {
