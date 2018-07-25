@@ -26,7 +26,6 @@ body {
   background-size: cover;
   color: white;
   font-family: '2048', sans-serif;
-  min-height: 100%;
 }
 
 /* Shadow for the navigation bar  */
@@ -112,8 +111,9 @@ body {
 footer {
   background-color: black;
   color: white;
-  padding-bottom: 5%;
+  margin-bottom: 0;
   margin-top: 6.5%;
+  padding-bottom: 5%;
 }
 
 .footer-content {
@@ -224,11 +224,14 @@ html {
   transform: translate(0, -150%);
 }
 
-.socialMediaLinks {
+.ui-page-active {
+  display: inline !important;
+  min-height: 0px;
 }
 
-.ui-page-active {
-  outline: none;
+.ui-pagecontainer, .ui-mobile-viewport, .ui-overlay-a, .ui-page, .ui-page-theme-a, .ui-page-active {
+  border: 0;
+  outline: 0;
 }
 
 
