@@ -19,11 +19,6 @@
 }
 
 body {
-  background-attachment: fixed;
-  background-image: url('../images/body/background.jpg');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
   color: white;
   font-family: '2048', sans-serif;
 }
@@ -229,8 +224,11 @@ html {
   min-height: 0px;
 }
 
-.ui-pagecontainer, .ui-mobile-viewport, .ui-overlay-a, .ui-page, .ui-page-theme-a, .ui-page-active {
+.ui-pagecontainer, .ui-mobile-viewport, .ui-overlay-a {
+  background: black;
   border: 0;
+  margin: 0;
+  padding: 0;
   outline: 0;
 }
 
