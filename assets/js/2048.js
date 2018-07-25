@@ -50,25 +50,25 @@ $(document).ready(function() {
   });
 
   // Listen for events from mobiles phones
-  $('.game-events-container, #board').on('swipeleft', function(event) {
+  $('.game-events-container, #board, .board-rounded').on('swipeleft', function(event) {
     event.stopPropagation();
     event.preventDefault();
     game.move(Move.LEFT);
   });
 
-  $('.game-events-container, #board').on('swiperight', function(event) {
+  $('.game-events-container, #board, .board-rounded').on('swiperight', function(event) {
     event.stopPropagation();
     event.preventDefault();
     game.move(Move.RIGHT);
   });
 
-  $('.game-events-container, #board').on('swipeup', function(event) {
+  $('.game-events-container, #board, .board-rounded').on('swipeup', function(event) {
     event.stopPropagation();
     event.preventDefault();
     game.move(Move.UP);
   });
 
-  $('.game-events-container, #board').on('swipedown', function(event) {
+  $('.game-events-container, #board, .board-rounded').on('swipedown', function(event) {
     event.stopPropagation();
     event.preventDefault();
     game.move(Move.DOWN);
