@@ -4,11 +4,11 @@
 ![database](https://img.shields.io/badge/database-Firebase-green.svg)
 ![license](https://img.shields.io/badge/license-Apache-blue.svg)
 
-# UJA 2048
-**Welcome to the Home page of UJA 2048!**
+# 2048
+**Welcome to the Home page of 2048!**
 
 <p align="center">
-  <img src="assets/images/2048/logo.png" width="140px" alt="UJA-2048 icon">
+  <img src="assets/images/2048/logo.png" width="140px" alt="2048 icon">
 </p>
 
 ### Table of Contents
@@ -67,11 +67,11 @@ The screen you must reach looks like that:
 </p>
 
 
-## Issues
-We're opened to suggestions, that's why we've created a small ['Issues' page](https://uja2048.github.io/issues.html), like the Github one :octocat: where you can only create and check the issues other users submitted. <br>
+## Issues (Currenly disabled)
+We're opened to suggestions, that's why we've created a small ['Issues' page](https://AlfonsoJosseton2048.github.io/issues.html), like the Github one :octocat: where you can only create and check the issues other users submitted. <br>
 That could be nice in case you don't want to sign in Github or you don't have an account. <br>
 
-Otherwise we prefer you to submit your issue to [Github](https://github.com/UJA2048/UJA2048.github.io/issues), so we can discuss and interact with other users. That's up to you!
+Otherwise we prefer you to submit your issue to [Github](https://github.com/AlfonsoJosseton2048/AlfonsoJosseton2048.github.io/issues), so we can discuss and interact with other users. That's up to you!
 
 ## Technologies
 Which technologies have we used?

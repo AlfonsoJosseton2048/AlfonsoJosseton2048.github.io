@@ -16,7 +16,7 @@
   <!-- Our CSS files -->
   <link rel="stylesheet" href="assets/css/2048.css">
 </head>
-<body>
+<body style="background-attachment: fixed; background-image: url('assets/images/body/background.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover;">
   <div class="container">
     <div id="header"> </div>
 
@@ -25,15 +25,15 @@
       <p class="col-xl-5 col-md-8 col-10 small text-center">
         We've built an small 'Issues' page, where you can create new issues and check those submitted by other users.
         It's recommended if you don't want to sign in Github, otherwise we prefer that you report your issue in the
-        <a href="https://github.com/UJA2048/uja2048.github.io/issues">'Issues' tab</a>
-        of our <a href="https://github.com/UJA2048/uja2048.github.io/">Github project</a>.
+        <a href="https://github.com/AlfonsoJosseton2048/AlfonsoJosseton2048.github.io/issues">'Issues' tab</a>
+        of our <a href="https://github.com/AlfonsoJosseton2048/AlfonsoJosseton2048.github.io/">Github project</a>.
       </p>
-  </div>
+    </div>
 
     <!-- Send a issue report -->
     <div class="row mt-4 justify-content-center">
       <!-- Button to display the modal window to add a new issue description -->
-      <button id="reportIssueButton" class="btn btn-primary mb-3" data-toggle="modal" data-target="#reportIssueModal">
+      <button id="reportIssueButton" class="btn btn-primary mb-3" data-toggle="modal" data-target="#reportIssueModal" disabled>
         <small> Create an issue <i class="ml-1 fas fa-plus"></i> </small>
       </button>
 
@@ -84,6 +84,11 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- Disabled page image -->
+    <div class="row justify-content-center">
+      <img src="assets/images/body/workingOn.png" width="300" height="280">
     </div>
 
     <!-- Board of bugs -->
@@ -170,8 +175,10 @@
   <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
 
   <!-- Custom JS -->
+  <script src="assets/js/app.js"></script>
   <script src="assets/js/issues.js"></script>
   <script src="assets/js/cookies.js"></script>
+  <script src="assets/js/scroll.js"></script>
   <script src="assets/js/templates.js"></script>
 </body>
 </html>
