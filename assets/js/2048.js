@@ -51,28 +51,27 @@ $(document).ready(function() {
 
   // Listen for events from mobiles phones
   $('.game-events-container, #board, .board-rounded').on('swipeleft', function(event) {
-    event.stopPropagation();
-    event.preventDefault();
-    game.move(Move.LEFT);
+    makeAMove(Move.LEFT);
   });
 
   $('.game-events-container, #board, .board-rounded').on('swiperight', function(event) {
-    event.stopPropagation();
-    event.preventDefault();
-    game.move(Move.RIGHT);
+    makeAMove(Move.RIGHT);
   });
 
   $('.game-events-container, #board, .board-rounded').on('swipeup', function(event) {
-    event.stopPropagation();
-    event.preventDefault();
-    game.move(Move.UP);
+    makeAMove(Move.UP);
   });
 
   $('.game-events-container, #board, .board-rounded').on('swipedown', function(event) {
+    makeAMove(Move.DOWN);
+  });
+
+  // Stops the default scroll actions and tells the board to make a move
+  function makeAMove(move) {
     event.stopPropagation();
     event.preventDefault();
-    game.move(Move.DOWN);
-  });
+    game.move(move);
+  }
 
 
   /// NOT RELATED TO EVENTS
@@ -214,6 +213,7 @@ class Board {
       // Change the numbers of points...
       this.modifyScores(previousPoints, this.points);
 
+      console.log(this.occupiedCells);
       // Board still has empty positions...
       if (reached2048) {
         this.buildEndGamePanel(true, this.points);
@@ -234,8 +234,17 @@ class Board {
             if (didMove) {
   			        $ref.makeRandomNumberAppear();
 
-                // Save the grid as a cookie once the new number appears
-                setCookie('board', JSON.stringify($ref.board), 365);
+                // When the new number appears, the game could be over
+                if (($ref.occupiedCells == ($ref.SIZE * $ref.SIZE)) && $ref.isGameOver()) {
+                  $ref.buildEndGamePanel(false, this.points);
+                  result = Status.DEFEAT;
+
+                  // Delete the cookies
+                  $ref.deleteCurrentGameCookies();
+                } else {
+                  // Save the grid as a cookie once the new number appears
+                  setCookie('board', JSON.stringify($ref.board), 365);
+                }
             }
             $ref.acceptMove = true;
         }, timeout);
