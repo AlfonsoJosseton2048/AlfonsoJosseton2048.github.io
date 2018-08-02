@@ -213,7 +213,6 @@ class Board {
       // Change the numbers of points...
       this.modifyScores(previousPoints, this.points);
 
-      console.log(this.occupiedCells);
       // Board still has empty positions...
       if (reached2048) {
         this.buildEndGamePanel(true, this.points);
