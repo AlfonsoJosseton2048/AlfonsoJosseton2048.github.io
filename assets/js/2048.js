@@ -275,14 +275,14 @@ class Board {
   buildEndGamePanel(victory, points) {
     if (victory) {
       var div = $('.victoryDiv');
-      var link = TWEET_LINK + 'I\'ve won a game of 2048 with ' + points + ' points! https://uja2048.github.io';
+      var link = TWEET_LINK + 'I\'ve won a game of 2048 with ' + this.points + ' points! https://uja2048.github.io';
     } else {
       var div = $('.defeatDiv');
-      var link = TWEET_LINK  + 'I\'ve got ' + points + ' points in a 2048 game! https://uja2048.github.io';
+      var link = TWEET_LINK  + 'I\'ve got ' + this.points + ' points in a 2048 game! https://uja2048.github.io';
     }
 
     // Modify the division with the number of points and the proper link
-    div.find('.pointsImage').text(points);
+    div.find('.pointsImage').text(this.points);
     div.find('a').attr('href', link.split(' ').join('%20'));
     div.fadeIn('slow');
   }
